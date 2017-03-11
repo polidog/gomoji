@@ -8,3 +8,8 @@ Inspired by [ttskch/mojiemoji](https://github.com/ttskch/mojiemoji)
 ```
 $ gomoji generate -text なるほど -output naruhodo.png
 ```
+
+
+## TODO
+
+- Slack upload support.
