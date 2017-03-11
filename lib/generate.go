@@ -1,9 +1,9 @@
-package emojimoji
+package gomoji
 
 import (
   "gopkg.in/gographics/imagick.v3/imagick"
-  "fmt"
   "unicode/utf8"
+  "encoding/base64"
 )
 
 type Moji struct {
@@ -52,7 +52,7 @@ func NewMoji(msg string, t int) Moji {
   return moji
 }
 
-func Create(msg string, t int) {
+func Generate(msg string, t int) (string, error) {
   imagick.Initialize()
   defer imagick.Terminate()
 
@@ -70,27 +70,21 @@ func Create(msg string, t int) {
 
 
   err := mw.DrawImage(dw)
+  var imageString string
+
   if err == nil {
-    mw.WriteImage("./out.png")
-  } else {
-    fmt.Println("DrawImage Error.")
-    fmt.Println(err)
+    // mw.WriteImage("./out.png")
+    blob := mw.GetImageBlob()
+    imageString = base64.StdEncoding.EncodeToString(blob)
   }
-  debug(moji)
+
+  return imageString, err
 
 }
 
 func readImage(mw *imagick.MagickWand, path string) {
   err := mw.ReadImage(path)
   if err != nil {
-    fmt.Println(err)
+    // fmt.Println(err)
   }
-}
-
-func debug(moji Moji) {
-  fmt.Println("x:",moji.x)
-  fmt.Println("y:",moji.y)
-  fmt.Println("fontSize:", moji.size)
-  fmt.Println("msg:",moji.msg)
-  fmt.Println("message length:",utf8.RuneCountInString(moji.msg))
 }
