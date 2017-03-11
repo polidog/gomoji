@@ -4,7 +4,7 @@ import (
   "flag"
   "os"
   "encoding/base64"
-  gomoji "./lib"
+  gomoji "github.com/polidog/gomoji/lib"
 )
 
 func generateCmd() command {
